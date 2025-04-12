@@ -18,4 +18,4 @@ public:
     void AddEntity(Entity& entity, int scene);
 };
 ```
-*current_scene* will be running and each scene has a *vector<Entity* and each entity has its own *Update() and *Draw()* functions
+*current_scene* will be running and each scene has a ```std::vector<Entity> entities;``` and each entity has its own *Update() and *Draw()* functions
