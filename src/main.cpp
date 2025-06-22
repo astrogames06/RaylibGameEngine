@@ -13,29 +13,16 @@
     #include <emscripten/emscripten.h>
 #endif
 
-#include "Game/Game.hpp"
 
-Game game;
+const int WIDTH = 850;
+const int HEIGHT = 450;
 
 void UpdateDrawFrame();
 
 int main(void)
 {
-	game.WIDTH = 840;
-	game.HEIGHT = 480;
-	InitWindow(game.WIDTH, game.HEIGHT, "raylib [core] example - basic window");
+	InitWindow(WIDTH, HEIGHT, "raylib [core] example - basic window");
 
-	Scene main;
-	main.bg_color = RED;
-	main.Init();
-
-	Entity player;
-	player.position = {300, 300};
-	player.texture = LoadTexture("astro.png");
-
-	game.AddEntity(player, 0); // Add to first scene
-
-	game.Init();
 	#if defined(PLATFORM_WEB)
     	emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
 	#else
@@ -56,7 +43,16 @@ int main(void)
 
 void UpdateDrawFrame()
 {
-	std::cout << game.current_scene->entities.size() << '\n';
-	game.Update();
-	game.Draw();
+	BeginDrawing();
+	
+	ClearBackground(RAYWHITE);
+
+	DrawText("Raylib Game template!", 100, 100, 20, BLACK);
+
+	if (GuiButton({200, 200, 100, 30}, "#32# PRESS ME NOW!"))
+	{
+		std::cout << "Pressed!\n";
+	}
+
+	EndDrawing();
 }

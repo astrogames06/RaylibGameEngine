@@ -1,25 +1,67 @@
-#ifndef GAME_HPP
-#define GAME_HPP
+#ifndef GAME_H
+#define GAME_H
 
 #include <vector>
-#include <iostream>
+#include <raylib.h>
+#include <memory>
+#include <string>
 
-#include "../Scene/Scene.hpp"
+#include "../Entity/Entity.hpp"
 
 class Game
 {
 public:
-    std::vector<Scene> scenes;
-    Scene* current_scene;
+    const int WIDTH = 875;
+    const int HEIGHT = 455;
+    const std::string TITLE = "Level Builder!";
 
-    int WIDTH;
-    int HEIGHT;
+    Camera2D camera;
+    std::vector<Rectangle> UI_recs;
+
+    Vector2 world_mouse_pos;
+    float CELL_SIZE = 35.f;
+    std::vector<Rectangle> cells;
+    
+    std::vector<std::unique_ptr<Entity>> entities;
+    template <typename T>
+    T* GetEntityOfType();
+
+    template <typename T>
+    std::vector<T*> GetEntitiesOfType();
+
+    Entity* selected_entity = nullptr;
+    bool dragging = false;
 
     void Init();
     void Update();
     void Draw();
 
-    void AddEntity(Entity& entity, int scene);
+    void Reset();
 };
+
+template <typename T>
+T* Game::GetEntityOfType()
+{
+    for (auto& entity : entities)
+    {
+        T* result = dynamic_cast<T*>(entity.get());
+        if (result != nullptr)
+            return result;
+    }
+    return nullptr;
+}
+
+template <typename T>
+std::vector<T*> Game::GetEntitiesOfType()
+{
+    std::vector<T*> results;
+    for (auto& entity : entities)
+    {
+        T* result = dynamic_cast<T*>(entity.get());
+        if (result != nullptr)
+            results.push_back(result);
+    }
+    return results;
+}
 
 #endif

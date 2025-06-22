@@ -1,20 +1,27 @@
-#ifndef ENTITY_HPP
-#define ENTITY_HPP
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <raylib.h>
 
 class Entity
 {
 public:
+    int x;
+    int y;
     Texture2D texture;
-    Vector2 position;
+    bool remove = false;
+    bool alive = true;
 
-    float angle = 0.f;
-    Vector2 origin = {0,0};
+    virtual ~Entity() = default;
+    virtual void Init() {}
+    virtual void Update() {}
+    virtual void Draw() {}
+    virtual void Reset() { alive = true; }
+    // To kill entity in game
+    virtual void Kill() { alive = false; }
 
-    void Init();
-    void Update();
-    void Draw();
+    // To delete entity from game.entities
+    void Delete() { remove = true; }
 };
 
 #endif

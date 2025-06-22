@@ -1,34 +1,32 @@
 #include "Game.hpp"
 
+#include <iostream>
+#include <algorithm>
+#include <raygui.h>
+
 void Game::Init()
 {
-    try
-    {
-        current_scene = &scenes[0];
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << "YOU NEED TO HAVE ATLEAST ONE SCENE TO START GAME" << '\n';
-    }
-}
 
+}
+    
 void Game::Update()
 {
-    current_scene->Update();
+
 }
 
 void Game::Draw()
 {
+    // std::cout << mode << '\n';
+    // std::cout << GetEntitiesOfType<Enemy>().size() << '\n';
+    
     BeginDrawing();
-        ClearBackground(current_scene->bg_color);
-        current_scene->Draw();
+    ClearBackground(WHITE);
+
+
     EndDrawing();
 }
 
-void Game::AddEntity(Entity& entity, int scene)
+void Game::Reset()
 {
-    if (scene >= 0 && scene < scenes.size())
-    {
-        scenes[scene].entities.push_back(entity);
-    }
+
 }
