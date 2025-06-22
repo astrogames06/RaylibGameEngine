@@ -13,15 +13,17 @@
     #include <emscripten/emscripten.h>
 #endif
 
+#include "Game/Game.hpp"
 
-const int WIDTH = 850;
-const int HEIGHT = 450;
+Game game;
 
 void UpdateDrawFrame();
 
 int main(void)
 {
-	InitWindow(WIDTH, HEIGHT, "raylib [core] example - basic window");
+	InitWindow(game.WIDTH, game.HEIGHT, game.TITLE.c_str());
+
+	game.Init();
 
 	#if defined(PLATFORM_WEB)
     	emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
@@ -43,16 +45,6 @@ int main(void)
 
 void UpdateDrawFrame()
 {
-	BeginDrawing();
-	
-	ClearBackground(RAYWHITE);
-
-	DrawText("Raylib Game template!", 100, 100, 20, BLACK);
-
-	if (GuiButton({200, 200, 100, 30}, "#32# PRESS ME NOW!"))
-	{
-		std::cout << "Pressed!\n";
-	}
-
-	EndDrawing();
+	game.Update();
+	game.Draw();
 }
