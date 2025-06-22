@@ -13,9 +13,9 @@ public:
     bool alive = true;
 
     virtual ~Entity() = default;
-    virtual void Init() {}
-    virtual void Update() {}
-    virtual void Draw() {}
+    virtual void Init();
+    virtual void Update();
+    virtual void Draw();
     virtual void Reset() { alive = true; }
     // To kill entity in game
     virtual void Kill() { alive = false; }

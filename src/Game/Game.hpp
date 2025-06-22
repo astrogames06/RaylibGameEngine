@@ -7,6 +7,13 @@
 #include <string>
 
 #include "../Entity/Entity.hpp"
+#include "../Scene/Scene.hpp"
+
+namespace Scenes
+{
+    extern std::unique_ptr<Scene> main_scene;
+    extern std::unique_ptr<Scene> other_scene;
+}
 
 class Game
 {
@@ -23,11 +30,15 @@ public:
     std::vector<Rectangle> cells;
     
     std::vector<std::unique_ptr<Entity>> entities;
+    void AddEntity(std::unique_ptr<Entity> entity);
+
     template <typename T>
     T* GetEntityOfType();
 
     template <typename T>
     std::vector<T*> GetEntitiesOfType();
+
+    void SetScene(Scene* scene);
 
     Entity* selected_entity = nullptr;
     bool dragging = false;
@@ -37,6 +48,8 @@ public:
     void Draw();
 
     void Reset();
+private:
+    Scene* current_scene;
 };
 
 template <typename T>

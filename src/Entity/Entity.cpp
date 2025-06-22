@@ -1,16 +1,16 @@
-// #include "Entity.hpp"
+#include "Entity.hpp"
 
-// void Entity::Init()
-// {
-//     ;
-// }
+void Entity::Init()
+{
+    ;
+}
 
-// void Entity::Update()
-// {
-//     ;
-// }
+void Entity::Update()
+{
+    ;
+}
 
-// void Entity::Draw()
-// {
-//    ;
-// }
+void Entity::Draw()
+{
+   DrawRectangle(x, y, 50, 50, RED);
+}
