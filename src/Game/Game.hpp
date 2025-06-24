@@ -23,13 +23,9 @@ public:
     const std::string TITLE = "Level Builder!";
 
     Camera2D camera;
-    std::vector<Rectangle> UI_recs;
 
-    Vector2 world_mouse_pos;
     float CELL_SIZE = 35.f;
-    std::vector<Rectangle> cells;
     
-    std::vector<std::unique_ptr<Entity>> entities;
     void AddEntity(std::unique_ptr<Entity> entity);
 
     template <typename T>
@@ -39,9 +35,6 @@ public:
     std::vector<T*> GetEntitiesOfType();
 
     void SetScene(Scene* scene);
-
-    Entity* selected_entity = nullptr;
-    bool dragging = false;
 
     void Init();
     void Update();
@@ -55,7 +48,7 @@ private:
 template <typename T>
 T* Game::GetEntityOfType()
 {
-    for (auto& entity : entities)
+    for (auto& entity : current_scene->entities)
     {
         T* result = dynamic_cast<T*>(entity.get());
         if (result != nullptr)
@@ -68,7 +61,7 @@ template <typename T>
 std::vector<T*> Game::GetEntitiesOfType()
 {
     std::vector<T*> results;
-    for (auto& entity : entities)
+    for (auto& entity : current_scene->entities)
     {
         T* result = dynamic_cast<T*>(entity.get());
         if (result != nullptr)

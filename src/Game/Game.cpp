@@ -25,6 +25,16 @@ void Game::Update()
         entity->Update();
     }
 
+    // Remove it if Entity->remove = true;
+    current_scene->entities.erase(
+        std::remove_if(
+            current_scene->entities.begin(),
+            current_scene->entities.end(),
+            [](const std::unique_ptr<Entity>& e) { return e->remove; }
+        ),
+        current_scene->entities.end()
+    );
+
     if (IsKeyPressed(KEY_E))
     {
         if (current_scene == Scenes::main_scene.get()) current_scene = Scenes::other_scene.get();
@@ -37,6 +47,11 @@ void Game::Update()
         new_entity->x = GetRandomValue(0, WIDTH);
         new_entity->y = GetRandomValue(0, HEIGHT);
         AddEntity(std::move(new_entity));
+    }
+
+    if (IsKeyPressed(KEY_B))
+    {
+        current_scene->entities[0]->Delete();
     }
 }
 
