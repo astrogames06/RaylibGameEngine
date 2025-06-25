@@ -78,7 +78,13 @@ void Game::Reset()
 
 void Game::AddEntity(std::unique_ptr<Entity> entity)
 {
-    current_scene->entities.push_back(std::move(entity));
+    if (current_scene != nullptr)
+    {
+        entity->Init();
+        current_scene->entities.push_back(std::move(entity));
+    }
+    else
+        std::cout << "! WARNING CURRENT SCENE IS NULLPTR !\n";
 }
 void Game::SetScene(Scene* scene)
 {
