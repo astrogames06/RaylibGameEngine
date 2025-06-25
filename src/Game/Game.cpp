@@ -20,6 +20,7 @@ void Game::Init()
     
 void Game::Update()
 {
+    current_scene->Update();
     for (std::unique_ptr<Entity>& entity : current_scene->entities)
     {
         entity->Update();
@@ -63,6 +64,7 @@ void Game::Draw()
     BeginDrawing();
     ClearBackground(WHITE);
 
+    current_scene->Draw();
     for (std::unique_ptr<Entity>& entity : current_scene->entities)
     {
         entity->Draw();
