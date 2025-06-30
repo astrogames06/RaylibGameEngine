@@ -15,6 +15,12 @@
 
 #include "Game/Game.hpp"
 
+namespace Scenes
+{
+    std::unique_ptr<Scene> main_scene;
+    std::unique_ptr<Scene> other_scene;
+}
+
 Game game;
 
 void UpdateDrawFrame();
@@ -23,6 +29,11 @@ int main(void)
 {
 	InitWindow(game.WIDTH, game.HEIGHT, game.TITLE.c_str());
 	game.Init();
+
+	Scenes::main_scene = std::make_unique<Scene>();
+    Scenes::other_scene = std::make_unique<Scene>();
+
+    game.SetScene(Scenes::main_scene.get());
 
 	#if defined(PLATFORM_WEB)
     	emscripten_set_main_loop(UpdateDrawFrame, 0, 1);

@@ -4,18 +4,12 @@
 #include <algorithm>
 #include <raygui.h>
 
-namespace Scenes
-{
-    std::unique_ptr<Scene> main_scene;
-    std::unique_ptr<Scene> other_scene;
-}
-
 void Game::Init()
 {
-    Scenes::main_scene = std::make_unique<Scene>();
-    Scenes::other_scene = std::make_unique<Scene>();
-
-    SetScene(Scenes::main_scene.get());
+    camera.target = { 0, 0 };
+    camera.offset = { 0, 0 };
+    camera.rotation = 0.0f;
+    camera.zoom = 1.0f;
 }
     
 void Game::Update()
@@ -35,34 +29,12 @@ void Game::Update()
         ),
         current_scene->entities.end()
     );
-
-    if (IsKeyPressed(KEY_E))
-    {
-        if (current_scene == Scenes::main_scene.get()) current_scene = Scenes::other_scene.get();
-        else current_scene = Scenes::main_scene.get();
-    }
-
-    if (IsKeyPressed(KEY_SPACE))
-    {
-        std::unique_ptr<Entity> new_entity = std::make_unique<Entity>();
-        new_entity->x = GetRandomValue(0, WIDTH);
-        new_entity->y = GetRandomValue(0, HEIGHT);
-        AddEntity(std::move(new_entity));
-    }
-
-    if (IsKeyPressed(KEY_B))
-    {
-        current_scene->entities[0]->Delete();
-    }
 }
 
 void Game::Draw()
 {
-    // std::cout << mode << '\n';
-    // std::cout << GetEntitiesOfType<Enemy>().size() << '\n';
-    
     BeginDrawing();
-    ClearBackground(WHITE);
+    ClearBackground(current_scene->background_color);
 
     current_scene->Draw();
     for (std::unique_ptr<Entity>& entity : current_scene->entities)
