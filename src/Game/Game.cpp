@@ -35,6 +35,7 @@ void Game::Draw()
 {
     BeginDrawing();
     ClearBackground(current_scene->background_color);
+    BeginMode2D(camera);
 
     current_scene->Draw();
     for (std::unique_ptr<Entity>& entity : current_scene->entities)
@@ -42,6 +43,7 @@ void Game::Draw()
         entity->Draw();
     }
 
+    EndMode2D();
     EndDrawing();
 }
 
