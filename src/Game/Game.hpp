@@ -9,12 +9,6 @@
 #include "../Entity/Entity.hpp"
 #include "../Scene/Scene.hpp"
 
-namespace Scenes
-{
-    extern std::unique_ptr<Scene> main_scene;
-    extern std::unique_ptr<Scene> other_scene;
-}
-
 class Game
 {
 public:
