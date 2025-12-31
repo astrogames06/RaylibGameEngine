@@ -33,7 +33,7 @@ int main(void)
 	Scenes::main_scene = std::make_unique<Scene>();
     Scenes::other_scene = std::make_unique<Scene>();
 
-    game.SetScene(Scenes::main_scene.get());
+    game.SetStartScene(Scenes::main_scene.get());
 
 	#if defined(PLATFORM_WEB)
     	emscripten_set_main_loop(UpdateDrawFrame, 0, 1);
