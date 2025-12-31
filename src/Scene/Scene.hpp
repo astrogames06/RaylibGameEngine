@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include <vector>
+#include <memory>
 #include <raylib.h>
 
 #include "../Entity/Entity.hpp"
@@ -16,6 +17,7 @@ public:
     virtual void Init() {}
     virtual void Update() {}
     virtual void Draw() {}
+    virtual void DrawUI() {}
 };
 
 #endif

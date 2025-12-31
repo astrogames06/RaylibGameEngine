@@ -12,5 +12,5 @@ void Entity::Update()
 
 void Entity::Draw()
 {
-   DrawRectangle(x, y, 50, 50, RED);
+   ;
 }
